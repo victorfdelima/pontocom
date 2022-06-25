@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
-module.exports = (app) => {
-    const Post = app.mongoose.model('post', postSchema);
+module.exports = () => {
+    const Post = mongoose.model('post', postSchema);
+
     const postSchema = {
         username: String,
         entryDayTime: String,

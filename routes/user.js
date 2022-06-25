@@ -1,3 +1,5 @@
+const user = require("../models/user");
+
 module.exports = app => {
     const User = app.models.user;
 
@@ -54,9 +56,15 @@ module.exports = app => {
             res.redirect('/');
         }
     });
+    app.get('/register', async function (req, res) {
+        if (req.isAuthenticated()) {
+            res.redirect('/logged');
+        } else {
+            res.render('register');
+        }
+    });
 
-
-    app.post('/register', function (req, res) {
+    app.post('/register', async function (req, res) {
         User.register(
             { username: req.body.username, email: req.body.email },
             req.body.password,
@@ -74,30 +82,35 @@ module.exports = app => {
         );
     });
 
-    app.post('/', function (req, res) {
-        const user = new User({
-            username: req.body.username,
-            password: req.body.password
-        });
-        User.find({ username: req.body.username }).exec(function (err, doc) {
-            if (Array.isArray(doc) && doc.length) {
-                req.login(user, function (err) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        passport.authenticate('local', { failureRedirect: '/fail-attempt' })(
-                            req,
-                            res,
-                            function () {
-                                nameUser = req.body.username;
-                                res.redirect('/logged');
-                            }
-                        );
-                    }
-                });
-            } else {
-                res.render('not-found');
-            }
-        });
-    });
+    app.post('/', async function (req, res) {
+        try {
+            const user = new user({
+                username: req.body.username,
+                password: req.body.password
+            });
+            User.find({ username: req.body.username }).exec(function (err, doc) {
+                if (Array.isArray(doc) && doc.length) {
+                    req.login(user, function (err) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            passport.authenticate('local', { failureRedirect: '/fail-attempt' })(
+                                req,
+                                res,
+                                function () {
+                                    nameUser = req.body.username;
+                                    res.redirect('/logged');
+                                }
+                            );
+                        }
+                    });
+                } else {
+                    res.render('not-found');
+                }
+            });
+        } catch (err) {
+
+
+        }
+    })
 }

@@ -26,4 +26,6 @@ module.exports = app => {
             done(err, user);
         });
     });
+    app.use(passport.initialize());
+    app.use(passport.session());
 }

@@ -2,33 +2,20 @@
 require('dotenv').config();
 const consign = require('consign');
 const express = require('express');
-const ejs = require('ejs');
-const mongoose = require('mongoose');
 const session = require('express-session');
-const passportLocalMongoose = require('passport-local-mongoose');
-const findOrCreate = require('mongoose-findorcreate');
-const Date = require('date-and-time');
-const uniqueValidator = require('mongoose-unique-validator');
-const async = require('async');
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
 const { connections } = require('mongodb/lib/core/connection/connection');
 
-const rotas = require('/routes')
-const aboutContent = 'Apenas uma versão do meu app de bater ponto';
-const contactContent = 'Email: vittinferreira@gmail.com';
 
-let nameUser = '';
+
 
 const app = express();
+app.use(express.static(__dirname + '/public'));
+
 consign({ verbose: false })
   .include('db.js')
   .then('models')
-  .then('associations.js')
   .then('auth.js')
-  .then('middlewares.js')
   .then('routes')
-  .then('boot.js')
   .into(app);
 
 
@@ -38,7 +25,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 
-app.use(express.static(__dirname + '/public'));
 
 app.use(
   session({
@@ -47,68 +33,6 @@ app.use(
     saveUninitialized: false
   })
 );
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-const uri = "mongodb+srv://pontocom:82384580@cluster0.uy612ph.mongodb.net/?retryWrites=true&w=majority";
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-});
-const connection = mongoose.connection;
-connection.once('open', () => {
-  console.log('MongoDB se conectou');
-});
-
-// const uri = "mongodb+srv://pontocom:<82384580>@cluster0.uy612ph.mongodb.net/?retryWrites=true&w=majority";
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
-
-//   // perform actions on the collection object
-//   client.close();
-
-// });
-
-const userSchema = mongoose.Schema({
-  username: { type: String, required: true, unique: true, trim: true },
-  email: {
-    type: String,
-    index: true,
-    unique: true,
-    required: [true, 'Is Required']
-  },
-  resetPasswordToken: String,
-  resetPasswordExpires: Date,
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-    select: false
-  },
-  isAdmin: {
-    type: Boolean,
-    default: false
-  }
-});
-
-const postSchema = {
-  username: String,
-  entryDayTime: String,
-  entryTimeZone: String,
-  rawEntry: Number,
-  exitDayTime: String,
-  rawExit: Number,
-  duration: String,
-  complete: Boolean,
-  createdAt: {
-    type: Date,
-    default: new Date()
-  }
-};
-
-
 
 
 let port = process.env.PORT;

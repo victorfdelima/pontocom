@@ -1,5 +1,8 @@
+const date = require('date-and-time');
+
 module.exports = app => {
     const Post = app.models.post;
+
 
     app.get('/logExit/:date', function (req, res) {
         if (req.isAuthenticated()) {
