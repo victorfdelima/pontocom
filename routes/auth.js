@@ -1,5 +1,10 @@
-module.exports = app => {
+const passport = require('passport');
+const passportLocalMongoose = require('passport-local-mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
+const findOrCreate = require('mongoose-findorcreate');
 
+module.exports = app => {
+    const User = app.models.user;
 
     app.use(passport.initialize());
     app.use(passport.session());

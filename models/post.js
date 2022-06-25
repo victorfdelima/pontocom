@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const Post = mongoose.model('post', postSchema);
-const Date = require('date-and-time');
-module.exports = app => {
+
+module.exports = (app) => {
+    const Post = app.mongoose.model('post', postSchema);
     const postSchema = {
         username: String,
         entryDayTime: String,
@@ -16,4 +16,5 @@ module.exports = app => {
             default: new Date()
         }
     };
-}
+    return Post;
+};

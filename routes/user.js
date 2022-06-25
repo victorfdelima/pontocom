@@ -1,5 +1,8 @@
 module.exports = app => {
     const User = app.models.user;
+
+    let nameUser = '';
+
     app.get('/logout', function (req, res) {
         req.logout();
         res.redirect('/');

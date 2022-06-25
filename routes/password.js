@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 module.exports = app => {
 
     app.get('/pass-recovery', function (req, res) {
