@@ -1,14 +1,15 @@
-const { all } = require("async");
+module.exports = app => {
+    app.get('/', async function (req, res) {
+        if (req.isAuthenticated()) {
+            res.redirect('/logged');
+        } else {
+            res.render('login');
+        }
+    });
+}
 
 
 
-app.get('/', async function (req, res) {
-    if (req.isAuthenticated()) {
-        res.redirect('/logged');
-    } else {
-        res.render('login');
-    }
-});
 
 app.get('/fail-attempt', async function (req, res) {
     res.render('fail-attempt');
@@ -210,5 +211,3 @@ app.get('/logExit/:date', function (req, res) {
 app.all('*', (req, res) => {
     res.render('404');
 });
-
-module.exports = all;

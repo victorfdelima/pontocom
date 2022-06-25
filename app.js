@@ -1,13 +1,13 @@
 //jshint esversion:6
 require('dotenv').config();
+const consign = require('consign');
 const express = require('express');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const session = require('express-session');
-const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const findOrCreate = require('mongoose-findorcreate');
-const date = require('date-and-time');
+const Date = require('date-and-time');
 const uniqueValidator = require('mongoose-unique-validator');
 const async = require('async');
 const nodemailer = require('nodemailer');
@@ -15,13 +15,23 @@ const crypto = require('crypto');
 const { connections } = require('mongodb/lib/core/connection/connection');
 
 const rotas = require('/routes')
-
 const aboutContent = 'Apenas uma versão do meu app de bater ponto';
 const contactContent = 'Email: vittinferreira@gmail.com';
 
 let nameUser = '';
 
 const app = express();
+consign({ verbose: false })
+  .include('db.js')
+  .then('models')
+  .then('associations.js')
+  .then('auth.js')
+  .then('middlewares.js')
+  .then('routes')
+  .then('boot.js')
+  .into(app);
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -98,25 +108,6 @@ const postSchema = {
   }
 };
 
-userSchema.plugin(uniqueValidator, {
-  message: 'Must Be Unique.'
-});
-userSchema.plugin(passportLocalMongoose);
-userSchema.plugin(findOrCreate);
-
-const User = new mongoose.model('user', userSchema);
-
-passport.use(User.createStrategy());
-
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, user) {
-    done(err, user);
-  });
-});
 
 
 
@@ -128,3 +119,5 @@ if (port == null || port == '') {
 app.listen(port, function () {
   console.log('Aguarde a mensagem "mongoDB se conectou". Após conectar clique aqui => http://localhost:3000');
 });
+
+module.exports = app;
