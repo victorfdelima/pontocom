@@ -1,5 +1,5 @@
 module.exports = app => {
-    app.get('/', async (req, res) {
+    app.get('/', async function (req, res) {
         if (req.isAuthenticated()) {
             res.redirect('/logged');
         } else {
