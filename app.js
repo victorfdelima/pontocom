@@ -523,5 +523,5 @@ if (port == null || port == '') {
 }
 
 app.listen(port, function () {
-  console.log('Server started');
+  console.log('Servidor iniciado');
 });
