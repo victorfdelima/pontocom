@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <title>Pontocom</title>
+  <title>Ponto</title>
 
   <!-- Bootstrap core CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -33,26 +33,26 @@
 <body>
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal">
-      <a class="logo-brand" href="/"> PontoCom</a>
+      <a class="logo-brand" href="/"> Ponto</a>
     </h5>
 
-    <a class="btn btn-outline-primary" href="/logout">SIGNOUT</a>
+    <a class="btn btn-outline-primary" href="/logout">Sair</a>
   </div>
   <div class="container content">
     <div class="container">
-      <h4 class="greeting">Howdy, <%= username %>
+      <h4 class="greeting">Olá, <%= username %>
       </h4>
       <button onclick="createLogin()" class="btn btn-outline-primary btn-lg btn-block entryBtn">
-        CREATE LOGIN ENTRY
+        Bater ponto de entrada
       </button>
     </div>
 
     <table class="table">
       <thead>
         <tr>
-          <th scope="col" class="entries">Logged In (Date, Time)</th>
-          <th scope="col" class="entries">Logged Out (Date, Time)</th>
-          <th scope="col" class="entries">Duration (hh:mm:ss)</th>
+          <th scope="col" class="entries">Entrada (Data, Horário)</th>
+          <th scope="col" class="entries">Saída (Data, Horário)</th>
+          <th scope="col" class="entries">Duração (hh:mm:ss)</th>
           <th scope="col" class="entries">Timezone</th>
         </tr>
       </thead>
