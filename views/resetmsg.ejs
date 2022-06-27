@@ -42,14 +42,14 @@
     <nav class="my-2 my-md-0 mr-md-3">
       <a class="p-2 text-dark" href="/">Login</a>
     </nav>
-    <a class="btn btn-outline-primary" href="/register">Register</a>
+    <!--  <a class="btn btn-outline-primary" href="/register">Register</a> -->
   </div>
   <div class="container text-center">
     <div class="alert alert-danger" role="alert">
       <%= message %>
     </div>
     <form class="form-signin" action="/reset/<%= token %>" method="POST">
-      <h1 class="h3 mb-3 font-weight-normal">Reset Password</h1>
+      <h1 class="h3 mb-3 font-weight-normal">Resetar senha</h1>
       <label for="username" class="sr-only">New Password</label>
       <input type="password" class="form-control" placeholder="New password" name="password" required autofocus />
       <label for="password" class="sr-only">Confirm Password</label>

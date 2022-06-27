@@ -41,23 +41,23 @@
     <nav class="my-2 my-md-0 mr-md-3">
       <a class="p-2 text-dark" href="/">Login</a>
     </nav>
-    <a class="btn btn-outline-primary" href="/register">Registrar</a>
+    <!-- <a class="btn btn-outline-primary" href="/register">Registrar</a> -->
   </div>
   <div class="container text-center">
     <div class="alert alert-danger" role="alert">
-      Incorrect Username Or Password.
+      Usuário ou senha incorreta.
     </div>
     <form class="form-signin" action="/" method="POST">
       <h1 class="h3 mb-3 font-weight-normal">Login</h1>
       <label for="username" class="sr-only">Username</label>
-      <input type="text" class="form-control" placeholder="Username" name="username" required autofocus />
+      <input type="text" class="form-control" placeholder="Usuário" name="username" required autofocus />
       <label for="password" class="sr-only">Password</label>
-      <input type="password" class="form-control" placeholder="Password" name="password" required />
+      <input type="password" class="form-control" placeholder="Senha" name="password" required />
       <button class="btn btn-lg btn-outline-primary btn-block" type="submit">
-        Sign In
+        Logar no sistema
       </button>
     </form>
-    <a href="/pass-recovery">Forgot Password?</a>
+    <!-- <a href="/pass-recovery">Recuperar conta?</a> -->
   </div>
   <%- include("partials/footer"); -%>
 </body>
